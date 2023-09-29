@@ -1,0 +1,141 @@
+create database project;
+use project;
+
+create table login(
+username varchar(25),
+password varchar(25),
+user_type varchar(25));
+
+insert into login values('heet','9586143361','ADMIN');
+insert into login values('prajay','9712616156','ADMIN');
+insert into login values('pranjal','0723','ADMIN');
+insert into login values('raju','007','EMPLOYEE');
+
+
+
+create table trainer(
+Name varchar(20),
+Phone VARCHAR(20),
+Salary integer(10));
+
+INSERT INTO TRAINER VALUES('HULK','9563215648','35000');
+
+INSERT INTO TRAINER VALUES('IRON MAN','9632587419','35000');
+
+INSERT INTO TRAINER VALUES('WONDER WOMAN','9856321456','35000');
+
+
+create table Batch(
+Batch varchar(10),
+Strength integer(10));
+
+INSERT INTO BATCH VALUES('7AM-9AM','8');
+
+INSERT INTO BATCH VALUES('9AM-11AM','8');
+
+INSERT INTO BATCH VALUES('1PM-3PM','8');
+
+
+
+
+
+
+
+create table Package(
+Package varchar(20),
+Price integer(11),
+Duration varchar(10));
+
+INSERT INTO PACKAGE VALUES('SILVER','10000','6 MONTHS');
+
+INSERT INTO PACKAGE VALUES('GOLD','30000','1 YEAR');
+
+INSERT INTO PACKAGE VALUES('DIAMOND','50000','2 YEARS');
+
+
+create table new_member
+(
+member_id integer(40) primary key,
+name varchar(400),
+phone_no varchar(20),
+gender char(1),
+dob date,
+address varchar(50),
+state varchar(20),
+city varchar(20),
+trainer varchar(20),
+batch varchar(20),
+package varchar(20)
+);
+
+
+INSERT INTO NEW_MEMBER VALUES('1','RAJ','986532147','M','2000/12/12','ALTHAN','GUJARAT','SURAT','HULK','2PM-4PM','GOLD');
+INSERT INTO NEW_MEMBER VALUES('2','VIRAJ','982511769','M','2000/11/12','ATHWAGATE','RAJASTHAN','JAIPUR','BLACK WIDOW','4PM-6PM','DAIMOND');
+INSERT INTO NEW_MEMBER VALUES('3','PRAJAY','97127','M','2001/10/11','PIPLOD','GUJARAT','SURAT','WONDER WOMEN','1PM-2PM','SILVER');
+INSERT INTO NEW_MEMBER VALUES('4','RANI','9865321','F','2002/1/12','VARACHA','GUJARAT','SURAT','HULK','6PM-8PM','DAIMOND');
+INSERT INTO NEW_MEMBER VALUES('5','RAJVI','986147','F','1999/2/22','KATARGAM','GUJARAT','SURAT','IRON MAN','10PM-12PM','GOLD');
+
+
+
+
+__________________________________________________________________________________________________________________________________________
+
+
+  DefaultTableModel model=(DefaultTableModel)jTable1.getModel();
+    try{
+        Class.forName("java.sql.Driver");
+        Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","admin");
+        Statement stmt=conn.createStatement();
+        String typebox=jComboBox1.getSelectedItem().toString();
+        String sql="select * from new_member where trainer='"+typebox+"';";
+        ResultSet rs=stmt.executeQuery(sql);       
+        int rows=model.getRowCount();
+    if(rows>0)
+        {
+            for (int i=0;i<rows;i++)
+            {
+                model.removeRow(0);
+            }
+        }
+        while(rs.next())
+        {
+        model.addRow(new Object[] {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),rs.getString(11)});  
+        }
+    }
+    catch(Exception e)
+    {
+        JOptionPane.showMessageDialog(this, e.getMessage());
+    }
+
+
+
+________________________________________________________________________________________________________________________________
+
+
+
+ initComponents();
+            try{
+           Class.forName("java.sql.Driver");    
+           Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","admin");
+           Statement stmt = conn.createStatement();
+           String sql = "Select DISTINCT batch from new_member;";
+           ResultSet rs = stmt.executeQuery(sql);
+           
+   while(rs.next())
+           {
+               jComboBox1.addItem(rs.getString(1));
+           } 
+    }
+    catch(Exception e)
+    {
+        JOptionPane.showMessageDialog(this, e.getMessage());
+    }
+
+
+___________________________________________________________________________________________________________________________________________
+
+
+            st.close();
+
+            con.close();
+
